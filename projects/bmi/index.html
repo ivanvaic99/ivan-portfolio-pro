@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BMI Calculator</title>
+<style>
+  :root { --bg:#0b0f19; --card:#121826; --muted:#a1a1aa; --text:#fafafa; --accent:#22d3ee; }
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+  .wrap{max-width:720px;margin:40px auto;padding:24px}
+  .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:20px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  input{width:100%;border:1px solid #334155;background:#0d1220;color:var(--text);border-radius:12px;padding:12px}
+  button{border:0;background:var(--accent);color:#0b0f19;font-weight:600;border-radius:999px;padding:12px 18px;cursor:pointer}
+  .muted{color:var(--muted)}
+  .back{display:inline-block;margin-bottom:16px;color:var(--muted);text-decoration:none}
+  .result{font-size:24px;margin:8px 0}
+  .pill{display:inline-block;border:1px solid #334155;padding:6px 10px;border-radius:999px;margin-right:6px}
+</style>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../">← Back to portfolio</a>
+    <h1>BMI Calculator</h1>
+    <p class="muted">Enter height (cm) and weight (kg).</p>
+
+    <div class="card">
+      <div class="row">
+        <div><label>Height (cm)<br><input id="h" type="number" min="80" max="250" placeholder="180"></label></div>
+        <div><label>Weight (kg)<br><input id="w" type="number" min="20" max="250" placeholder="75"></label></div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+        <button id="calc">Calculate</button>
+        <span id="save" class="pill" title="Last result will be saved">Auto-save</span>
+      </div>
+      <div class="result" id="res">—</div>
+      <div class="muted" id="cat"></div>
+    </div>
+  </div>
+<script>
+const h=document.getElementById('h'), w=document.getElementById('w'), res=document.getElementById('res'), cat=document.getElementById('cat')
+document.getElementById('calc').onclick=()=>{
+  const H=parseFloat(h.value), W=parseFloat(w.value)
+  if(!H||!W) return alert('Enter both height and weight')
+  const bmi=+(W/((H/100)**2)).toFixed(1)
+  res.textContent=`BMI: ${bmi}`
+  let c='Normal'
+  if(bmi<18.5) c='Underweight'
+  else if(bmi<25) c='Normal'
+  else if(bmi<30) c='Overweight'
+  else c='Obese'
+  cat.textContent=`Category: ${c}`
+  localStorage.setItem('bmi-last', JSON.stringify({H,W,bmi,c,ts:Date.now()}))
+}
+const last=localStorage.getItem('bmi-last')
+if(last){ try{ const o=JSON.parse(last); h.value=o.H; w.value=o.W; res.textContent=`BMI: ${o.bmi}`; cat.textContent=`Category: ${o.c}` }catch{} }
+</script>
+</body>
+</html>

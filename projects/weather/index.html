@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Weather (Open-Meteo)</title>
+<style>
+  :root { --bg:#0b0f19; --card:#121826; --muted:#a1a1aa; --text:#fafafa; --accent:#60a5fa; }
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+  .wrap{max-width:720px;margin:40px auto;padding:24px}
+  .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:20px}
+  input{width:100%;border:1px solid #334155;background:#0d1220;color:var(--text);border-radius:12px;padding:10px}
+  button{border:0;background:var(--accent);color:#0b0f19;font-weight:600;border-radius:999px;padding:10px 16px;cursor:pointer}
+  .muted{color:var(--muted)}
+  .back{display:inline-block;margin-bottom:16px;color:var(--muted);text-decoration:none}
+</style>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../">← Back to portfolio</a>
+    <h1>Weather</h1>
+    <p class="muted">Uses <a href="https://open-meteo.com/" target="_blank" rel="noopener" class="muted">Open-Meteo</a> (no API key). Try geolocation or search by coordinates.</p>
+
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <input id="lat" placeholder="Latitude e.g. 44.8" />
+        <input id="lon" placeholder="Longitude e.g. 20.5" />
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button id="geo">Use my location</button>
+        <button id="go" style="background:#22d3ee">Get weather</button>
+      </div>
+      <div id="out" style="margin-top:12px"></div>
+    </div>
+  </div>
+<script>
+const out=document.getElementById('out'), lat=document.getElementById('lat'), lon=document.getElementById('lon')
+async function fetchWx(LA,LO){
+  out.textContent='Loading...'
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${LA}&longitude=${LO}&current_weather=true`
+    const r=await fetch(url); const j=await r.json()
+    if(!j.current_weather) throw new Error('No data')
+    const cw=j.current_weather
+    out.innerHTML = `
+      <div style="font-size:28px;margin-bottom:6px">${cw.temperature}°C</div>
+      <div class="muted">Wind: ${cw.windspeed} km/h | Direction: ${cw.winddirection}°</div>
+      <div class="muted">Coords: ${LA.toFixed(3)}, ${LO.toFixed(3)}</div>
+    `
+  }catch(e){ out.textContent='Failed to load weather.' }
+}
+document.getElementById('go').onclick=()=>{
+  const LA=parseFloat(lat.value), LO=parseFloat(lon.value)
+  if(!LA||!LO) return alert('Enter latitude and longitude')
+  fetchWx(LA,LO)
+}
+document.getElementById('geo').onclick=()=>{
+  if(!navigator.geolocation) return alert('Geolocation not supported')
+  navigator.geolocation.getCurrentPosition(p=>{
+    lat.value=p.coords.latitude.toFixed(4)
+    lon.value=p.coords.longitude.toFixed(4)
+    fetchWx(p.coords.latitude, p.coords.longitude)
+  }, _=> alert('Could not get location'))
+}
+// default: Belgrade
+lat.value='44.812'; lon.value='20.461'
+</script>
+</body>
+</html>

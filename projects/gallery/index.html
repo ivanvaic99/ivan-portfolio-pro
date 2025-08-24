@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gallery</title>
+<style>
+  :root { --bg:#0b0f19; --card:#121826; --muted:#a1a1aa; --text:#fafafa; }
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+  .wrap{max-width:1100px;margin:40px auto;padding:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+  img{width:100%;height:180px;object-fit:cover;border-radius:12px;border:1px solid #1f2937;cursor:pointer;transition:opacity .15s}
+  img:hover{opacity:.9}
+  .modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center}
+  .modal img{max-width:92vw;max-height:88vh;border-radius:12px}
+  .back{display:inline-block;margin-bottom:16px;color:var(--muted);text-decoration:none}
+</style>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../">← Back to portfolio</a>
+    <h1>Gallery</h1>
+
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="modal" id="modal" onclick="this.style.display='none'">
+    <img id="big" alt="Preview">
+  </div>
+<script>
+// par lepih slika sa Unsplash-a (statični linkovi)
+const imgs=[
+ 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop',
+ 'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop',
+ 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
+ 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1600&auto=format&fit=crop',
+ 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1600&auto=format&fit=crop',
+ 'https://images.unsplash.com/photo-1520975922329-216c03e3f2b8?q=80&w=1600&auto=format&fit=crop',
+]
+const grid=document.getElementById('grid'), modal=document.getElementById('modal'), big=document.getElementById('big')
+grid.innerHTML = imgs.map(src=>`<img src="${src}&h=360" data-full="${src}">`).join('')
+grid.onclick = (e)=>{ const t=e.target.closest('img'); if(!t) return; big.src=t.dataset.full; modal.style.display='flex' }
+</script>
+</body>
+</html>
