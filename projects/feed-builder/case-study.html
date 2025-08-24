@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Case Study — Product Feed Builder</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="description" content="How the Product Feed Builder helps stores export CSV to Google Merchant XML quickly." />
+  <style>
+    .cs-container { max-width: 980px; margin: 0 auto; padding: 20px; }
+    .cs-hero { padding: 28px 0 10px; }
+    .cs-hero h1 { font-size: 28px; margin: 0 0 6px; }
+    .cs-hero .muted { color: #9aa1b2; }
+    .cs-grid { display:grid; gap:16px; grid-template-columns: 1fr; }
+    .cs-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+               border:1px solid #1f2636; border-radius:16px; padding:18px; }
+    .cs-h2 { font-size: 20px; margin: 0 0 8px; }
+    .cs-ul { margin: 8px 0 0 18px; color:#cfd3de; }
+    .cs-ul li { margin: 6px 0; }
+    .cs-btns { display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
+    .btn { height:40px; padding:0 14px; border-radius:999px; border:1px solid #1f2636; background:#141b2b; color:#e6e6eb; text-decoration:none; display:inline-flex; align-items:center; }
+    .btn.primary { background: linear-gradient(135deg, #8b5cf6, #22c55e); border:none; }
+    .muted { color:#9aa1b2; }
+    .small { font-size: 12px; }
+    .cs-hr { border:0; border-top:1px solid #1f2636; margin: 18px 0; }
+    .cs-kpi { display:grid; grid-template-columns: repeat(3,1fr); gap:10px; }
+    .cs-kpi .cs-card { text-align:center; }
+    .cs-kpi h3 { margin:0; font-size:22px; }
+    .cs-kpi p { margin:4px 0 0; color:#9aa1b2; font-size:13px; }
+    @media (max-width: 720px) { .cs-kpi { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="cs-container cs-hero">
+    <h1>Case Study — Product Feed Builder</h1>
+    <p class="muted">CSV → Google Merchant XML (client-ready)</p>
+    <div class="cs-btns">
+      <a class="btn primary" href="./index.html">Open the App</a>
+      <a class="btn" href="../../index.html">Back to Portfolio</a>
+    </div>
+  </header>
+
+  <main class="cs-container">
+    <section class="cs-grid">
+      <div class="cs-card">
+        <h2 class="cs-h2">Problem</h2>
+        <ul class="cs-ul">
+          <li>Prodavnice imaju CSV export iz WooCommerce-a, ali je <strong>ručno pravljenje</strong> Google Merchant XML-a sporo i sklono greškama.</li>
+          <li>Agencijama treba <strong>brz, siguran način</strong> da premapiraju kolone (title, price, link, image…).</li>
+        </ul>
+      </div>
+
+      <div class="cs-card">
+        <h2 class="cs-h2">Rešenje</h2>
+        <ul class="cs-ul">
+          <li>Frontend app (bez servera) — učitavanje CSV-a preko PapaParse.</li>
+          <li>UI za mapiranje kolona + autodetekcija (id/sku, title, price…).</li>
+          <li>Opcije: currency, VAT %, default availability/condition.</li>
+          <li>Generiše <strong>validan XML</strong> (RSS + g: namespace) i JSON.</li>
+        </ul>
+      </div>
+
+      <div class="cs-card">
+        <h2 class="cs-h2">Tehnologije</h2>
+        <ul class="cs-ul">
+          <li>Vanilla JS + PapaParse (CSV), bez backend-a (radi na GitHub Pages).</li>
+          <li>Minimalan CSS dizajn (tamna tema), fokus na UX i čitljivost.</li>
+        </ul>
+      </div>
+
+      <div class="cs-card">
+        <h2 class="cs-h2">Rezultati</h2>
+        <div class="cs-kpi">
+          <div class="cs-card">
+            <h3>~10×</h3>
+            <p>brža izrada XML feed-a</p>
+          </div>
+          <div class="cs-card">
+            <h3>0</h3>
+            <p>server troškova</p>
+          </div>
+          <div class="cs-card">
+            <h3>&lt;5 min</h3>
+            <p>od CSV do validnog XML-a</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="cs-hr" />
+
+    <section class="small muted">
+      <p>Želite pomoć oko podešavanja feed-ova ili mesečnog WP održavanja? Javite se:</p>
+      <p><a class="btn" href="mailto:ivan.vaic22@gmail.com">ivan.vaic22@gmail.com</a> • <a class="btn" href="https://ivanvaic99.github.io/ivan-portfolio-pro/#contact">kontakt forma</a></p>
+    </section>
+  </main>
+</body>
+</html>

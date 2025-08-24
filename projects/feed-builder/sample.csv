@@ -1,0 +1,3 @@
+id,title,description,link,image_link,price,availability,condition,brand
+SKU-1001,Minimal Tee,Soft cotton white t-shirt,https://example.com/p/minimal-tee,https://picsum.photos/id/1062/600/600,1299,RSD,in stock,new,Acme
+SKU-1002,City Backpack,Durable city backpack,https://example.com/p/city-backpack,https://picsum.photos/id/1069/600/600,3999,RSD,in stock,new,Acme
