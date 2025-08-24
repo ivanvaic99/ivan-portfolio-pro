@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ivanvaic99.github.io/ivan-portfolio-pro/sitemap.xml
