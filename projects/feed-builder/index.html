@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Feed Builder — Google Merchant XML</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="description" content="Build a Google Merchant XML feed from a CSV file. Map columns, validate, and download the result." />
+  <!-- PapaParse (CSV) -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <header class="container">
+    <h1>Product Feed Builder</h1>
+    <p class="muted">Upload CSV → map fields → generate <strong>Google Merchant</strong> XML / JSON.</p>
+  </header>
+
+  <main class="container card">
+    <section class="section">
+      <label class="label">Upload CSV</label>
+      <input id="fileInput" type="file" accept=".csv" />
+      <p class="hint">
+        Need a test file? <a href="./sample.csv" download>Download sample.csv</a>
+      </p>
+      <div id="fileInfo" class="file-info"></div>
+    </section>
+
+    <section id="mapping" class="section hidden">
+      <h2>Map CSV columns</h2>
+      <div class="grid">
+        <div class="field">
+          <label>Product ID (g:id) <span class="req">*</span></label>
+          <select id="map-id"></select>
+        </div>
+        <div class="field">
+          <label>Title (g:title) <span class="req">*</span></label>
+          <select id="map-title"></select>
+        </div>
+        <div class="field">
+          <label>Description (g:description)</label>
+          <select id="map-description"></select>
+        </div>
+        <div class="field">
+          <label>Product URL (g:link) <span class="req">*</span></label>
+          <select id="map-link"></select>
+        </div>
+        <div class="field">
+          <label>Image URL (g:image_link) <span class="req">*</span></label>
+          <select id="map-image"></select>
+        </div>
+        <div class="field">
+          <label>Price (g:price) <span class="req">*</span></label>
+          <select id="map-price"></select>
+        </div>
+        <div class="field">
+          <label>Availability (g:availability)</label>
+          <select id="map-availability"></select>
+        </div>
+        <div class="field">
+          <label>Condition (g:condition)</label>
+          <select id="map-condition"></select>
+        </div>
+        <div class="field">
+          <label>Brand (g:brand)</label>
+          <select id="map-brand"></select>
+        </div>
+      </div>
+
+      <div class="grid mt">
+        <div class="field">
+          <label>Currency</label>
+          <select id="currency">
+            <option value="RSD">RSD</option>
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>VAT % (adds to price)</label>
+          <input id="vat" type="number" step="0.01" min="0" value="0" />
+        </div>
+        <div class="field">
+          <label>Default availability</label>
+          <select id="defaultAvailability">
+            <option value="">—</option>
+            <option value="in stock">in stock</option>
+            <option value="out of stock">out of stock</option>
+            <option value="preorder">preorder</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Default condition</label>
+          <select id="defaultCondition">
+            <option value="">—</option>
+            <option value="new">new</option>
+            <option value="refurbished">refurbished</option>
+            <option value="used">used</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="validation" class="validation"></div>
+
+      <div class="actions">
+        <button id="btnXml" class="btn primary">Generate XML</button>
+        <button id="btnJson" class="btn">Download JSON</button>
+        <a id="downloadLink" class="btn hidden" download="feed.xml">Download XML</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container muted small">
+    <a href="../../index.html">&larr; Back to portfolio</a>
+  </footer>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
